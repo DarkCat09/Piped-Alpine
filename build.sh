@@ -1,9 +1,6 @@
 #!/usr/bin/env ash
 # shellcheck shell=dash
 
-BOLD=$(tput bold)
-RESET=$(tput sgr0)
-
 WORKDIR=$(pwd)
 
 
@@ -30,8 +27,8 @@ try_exec () {
 }
 
 title () {
-    echo
-    echo "$BOLD$1$RESET"
+    # Newline, Bold text, $1, Normal text, Newline
+    printf '\n\033[1m%s\033[0m\n' "$1"
 }
 
 
@@ -47,8 +44,13 @@ title 'Cloning repositories...'
 [ -e reqwest4j ] || clone https://github.com/TeamPiped/reqwest4j reqwest4j
 
 title 'Applying patches...'
-cd_and_exec backend git apply ../backend.patch
-cd_and_exec reqwest4j git apply ../reqwest4j.patch
+echo "Hint: if you've already applied patches,"
+echo "pass \"patched\" as the first argument to the script."
+if [ "$1" != "patched" ]
+then
+    cd_and_exec backend git apply ../backend.patch
+    cd_and_exec reqwest4j git apply ../reqwest4j.patch
+fi
 
 
 # ---
