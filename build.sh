@@ -72,7 +72,7 @@ cd_and_exec reqwest4j/build/libs \
 
 # ---
 title 'Adding reqwest4j JAR into Piped...'
-cd_and_exec backend mkdir libs
+cd_and_exec backend mkdir -p libs
 cd_and_exec backend/libs mv "$REQ4J" ./
 
 title 'Building Piped...'
