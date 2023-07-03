@@ -47,8 +47,8 @@ title 'Cloning repositories...'
 [ -e reqwest4j ] || clone https://github.com/TeamPiped/reqwest4j reqwest4j
 
 title 'Applying patches...'
-cd_and_exec backend try_exec git apply ../backend.patch
-cd_and_exec reqwest4j try_exec git apply ../reqwest4j.patch
+cd_and_exec backend git apply ../backend.patch
+cd_and_exec reqwest4j git apply ../reqwest4j.patch
 
 
 # ---
