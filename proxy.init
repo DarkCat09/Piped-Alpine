@@ -1,0 +1,23 @@
+#!/sbin/openrc-run
+
+export UDS=1
+
+name=$RC_SVCNAME
+command="/home/ytproxy/piped-proxy"
+command_user="nginx"
+directory="/home/ytproxy"
+
+output_log="/var/log/$RC_SVCNAME/proxy.log"
+error_log="/var/log/$RC_SVCNAME/error.log"
+
+pidfile="/run/$RC_SVCNAME/$RC_SVCNAME.pid"
+command_background="yes"
+
+depend() {
+        need net
+}
+
+start_pre() {
+        checkpath --directory --owner $command_user:$command_user --mode 0775 \
+                /run/$RC_SVCNAME /var/log/$RC_SVCNAME
+}
