@@ -1,0 +1,18 @@
+diff --git a/reqwest-jni/build.gradle.kts b/reqwest-jni/build.gradle.kts
+index 189a81d..8c5895e 100644
+--- a/reqwest-jni/build.gradle.kts
++++ b/reqwest-jni/build.gradle.kts
+@@ -4,8 +4,10 @@ plugins {
+ 
+ rust {
+     release.set(true)
+-    command.set("cross")
++    command.set("cargo")
++    cargoInstallTargets.set(true)
+ 
+-    targets += target("aarch64-unknown-linux-gnu", "libreqwest.so")
+-    targets += target("x86_64-unknown-linux-gnu", "libreqwest.so")
++    // targets += target("aarch64-unknown-linux-gnu", "libreqwest.so")
++    // targets += target("x86_64-unknown-linux-gnu", "libreqwest.so")
++    targets += target("x86_64-unknown-linux-musl", "libreqwest.so")
+ }

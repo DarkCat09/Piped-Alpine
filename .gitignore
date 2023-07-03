@@ -1,0 +1,11 @@
+piped.jar
+config.properties
+
+backend/
+reqwest4j/
+reqwest4j.jar
+libreqwest_jni.so
+META-INF/
+
+.vscode/
+*.swp
