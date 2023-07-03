@@ -116,9 +116,12 @@ rm -rf backend reqwest4j
 
 
 # ---
-echo '*** **** ***'
-echo '*** DONE ***'
+echo '*** ************** ***'
+echo '***      DONE      ***'
+echo '*** ************** ***'
+
 title 'You need these files:'
+
 for f in "piped.jar" "config.properties"
 do
     echo "  $(readlink -f "$f")"
