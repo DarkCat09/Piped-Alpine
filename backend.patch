@@ -1,5 +1,5 @@
 diff --git a/build.gradle b/build.gradle
-index f68c2d6..977c514 100644
+index f68c2d6..9d568d2 100644
 --- a/build.gradle
 +++ b/build.gradle
 @@ -40,7 +40,8 @@ dependencies {
@@ -7,21 +7,21 @@ index f68c2d6..977c514 100644
      implementation 'com.squareup.okhttp3:okhttp-brotli'
      implementation 'io.sentry:sentry:6.24.0'
 -    implementation 'rocks.kavin:reqwest4j:1.0.5'
-+    // implementation 'rocks.kavin:reqwest4j:1.0.5'
++    //implementation 'rocks.kavin:reqwest4j:1.0.5'
 +    implementation files('libs/reqwest4j.jar')
      implementation 'io.minio:minio:8.5.4'
  }
  
-diff --git a/src/main/java/me/kavin/piped/consts/Constants.java b/src/main/java/me/kavin/piped/consts/Constants.java
-index 4f338c0..8c606b5 100644
---- a/src/main/java/me/kavin/piped/consts/Constants.java
-+++ b/src/main/java/me/kavin/piped/consts/Constants.java
-@@ -142,7 +142,7 @@ public class Constants {
-             DISABLE_SERVER = Boolean.parseBoolean(getProperty(prop, "DISABLE_SERVER", "false"));
-             DISABLE_LBRY = Boolean.parseBoolean(getProperty(prop, "DISABLE_LBRY", "false"));
-             SUBSCRIPTIONS_EXPIRY = Integer.parseInt(getProperty(prop, "SUBSCRIPTIONS_EXPIRY", "30"));
--            SENTRY_DSN = getProperty(prop, "SENTRY_DSN", "");
-+            SENTRY_DSN = /*getProperty(prop, "SENTRY_DSN", "")*/ "";
-             S3_ENDPOINT = getProperty(prop, "S3_ENDPOINT");
-             S3_ACCESS_KEY = getProperty(prop, "S3_ACCESS_KEY");
-             S3_SECRET_KEY = getProperty(prop, "S3_SECRET_KEY");
+diff --git a/src/main/java/me/kavin/piped/Main.java b/src/main/java/me/kavin/piped/Main.java
+index b38464a..42c8f96 100644
+--- a/src/main/java/me/kavin/piped/Main.java
++++ b/src/main/java/me/kavin/piped/Main.java
+@@ -36,7 +36,7 @@ public class Main {
+         YoutubeStreamExtractor.forceFetchIosClient(true);
+ 
+         Sentry.init(options -> {
+-            options.setDsn(Constants.SENTRY_DSN);
++            options.setDsn("");
+             options.setRelease(Constants.VERSION);
+             options.addIgnoredExceptionForType(ErrorResponse.class);
+             options.setTracesSampleRate(0.1);
