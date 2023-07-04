@@ -44,12 +44,18 @@ title 'Cloning repositories...'
 [ -e reqwest4j ] || clone https://github.com/TeamPiped/reqwest4j reqwest4j
 
 title 'Applying patches...'
-echo "Hint: if you've already applied patches,"
-echo "pass \"patched\" as the first argument to the script."
 if [ "$1" != "patched" ]
 then
+    title 'Hint:'
+    echo "if you've already applied patches,"
+    echo "call this script specifying \"patched\" arg, i.e."
+    echo "./build.sh patched"
+    echo
+
     cd_and_exec backend git apply ../backend.patch
     cd_and_exec reqwest4j git apply ../reqwest4j.patch
+else
+    echo 'Already applied, skipping'
 fi
 
 
@@ -67,6 +73,8 @@ cd_and_exec reqwest4j ./gradlew --stop
 # ---
 title 'Adding built libreqwest_jni into reqwest4j JAR...'
 
+title '--Copying files'
+
 # Copy JAR into workdir
 REQ4J_NAME="reqwest4j.jar"
 REQ4J="$WORKDIR/$REQ4J_NAME"
@@ -78,20 +86,25 @@ cd_and_exec reqwest4j/build/libs \
 # Copy built reqwest-jni into workdir
 REQJNI_NAME="libreqwest.so"
 REQJNI="$WORKDIR/$REQJNI_NAME"
+
 cd_and_exec reqwest4j/reqwest-jni/target/release \
     cp libreqwest_jni.so "$REQJNI"
 
 # Create JAR native libraries tree
+title '--Creating libraries directory tree'
 NATIVES="META-INF/natives/linux/x86_64"
 mkdir -p "$NATIVES"
 
 # Move reqwest-jni to native libraries directory
+title '--Moving libreqwest'
 mv "$REQJNI" "$NATIVES/$REQJNI_NAME"
 
 # Add native libraries into JAR
+title '--Injecting libraries directory into reqwest4j JAR'
 7z u "$REQ4J" META-INF
 
 # Clean up
+title '--Cleaning up'
 rm -rf META-INF
 rm -f "$REQJNI"
 
@@ -120,6 +133,7 @@ rm -rf backend reqwest4j
 
 
 # ---
+echo
 echo '*** ************** ***'
 echo '***      DONE      ***'
 echo '*** ************** ***'
