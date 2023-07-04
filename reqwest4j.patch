@@ -1,3 +1,16 @@
+diff --git a/build.gradle b/build.gradle
+index 952abb5..582be0d 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -11,7 +11,7 @@ repositories {
+ }
+ 
+ dependencies {
+-    rust(project(":reqwest-jni"))
++    //rust(project(":reqwest-jni"))
+ }
+ 
+ // javac -h
 diff --git a/reqwest-jni/build.gradle.kts b/reqwest-jni/build.gradle.kts
 index 189a81d..8c5895e 100644
 --- a/reqwest-jni/build.gradle.kts
