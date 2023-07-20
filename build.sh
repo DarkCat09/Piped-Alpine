@@ -67,7 +67,8 @@ fi
 export RUSTFLAGS="-C target-feature=-crt-static"
 
 title 'Building reqwest-jni'
-cd_and_exec reqwest4j/reqwest-jni cargo build --release
+cd_and_exec reqwest4j/reqwest-jni \
+    cargo build --release --target x86_64-unknown-linux-musl
 
 title 'Building reqwest4j without Rust library...'
 cd_and_exec reqwest4j ./gradlew shadowJar
