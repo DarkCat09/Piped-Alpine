@@ -1,23 +1,23 @@
 diff --git a/build.gradle b/build.gradle
-index f68c2d6..9d568d2 100644
+index 231b179..f6cd83b 100644
 --- a/build.gradle
 +++ b/build.gradle
 @@ -40,7 +40,8 @@ dependencies {
      implementation 'com.squareup.okhttp3:okhttp'
      implementation 'com.squareup.okhttp3:okhttp-brotli'
-     implementation 'io.sentry:sentry:6.24.0'
--    implementation 'rocks.kavin:reqwest4j:1.0.5'
-+    //implementation 'rocks.kavin:reqwest4j:1.0.5'
+     implementation 'io.sentry:sentry:6.26.0'
+-    implementation 'rocks.kavin:reqwest4j:1.0.6'
++    //implementation 'rocks.kavin:reqwest4j:1.0.6'
 +    implementation files('libs/reqwest4j.jar')
      implementation 'io.minio:minio:8.5.4'
  }
  
 diff --git a/src/main/java/me/kavin/piped/Main.java b/src/main/java/me/kavin/piped/Main.java
-index b38464a..42c8f96 100644
+index a8647c0..3265111 100644
 --- a/src/main/java/me/kavin/piped/Main.java
 +++ b/src/main/java/me/kavin/piped/Main.java
-@@ -36,7 +36,7 @@ public class Main {
-         YoutubeStreamExtractor.forceFetchIosClient(true);
+@@ -39,7 +39,7 @@ public class Main {
+         ReqwestUtils.init(Constants.REQWEST_PROXY);
  
          Sentry.init(options -> {
 -            options.setDsn(Constants.SENTRY_DSN);
