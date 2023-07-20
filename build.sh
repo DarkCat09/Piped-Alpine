@@ -92,7 +92,7 @@ cd_and_exec reqwest4j/build/libs \
 REQJNI_NAME="libreqwest.so"
 REQJNI="$WORKDIR/$REQJNI_NAME"
 
-cd_and_exec reqwest4j/reqwest-jni/target/release \
+cd_and_exec reqwest4j/reqwest-jni/target/x86_64-unknown-linux-musl/release \
     cp libreqwest_jni.so "$REQJNI"
 
 # Create JAR native libraries tree
