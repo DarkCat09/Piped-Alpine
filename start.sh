@@ -1,11 +1,11 @@
 #!/bin/ash
 # shellcheck shell=dash
 
-JAVA_BIN="/usr/lib/jvm/default-jvm/bin/java"
+JAVA_BIN="/usr/lib/jvm/java-17-openjdk/bin/java"
 PIPED="/home/piped/piped.jar"
 
 "$JAVA_BIN" -server \
-    -Xmx1G \
+    -Xmx2G \
     -XX:+UnlockExperimentalVMOptions \
     -XX:+OptimizeStringConcat \
     -XX:+UseStringDeduplication \
