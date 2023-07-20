@@ -1,19 +1,22 @@
 #!/sbin/openrc-run
 
 name=$RC_SVCNAME
-command="/bin/ash"
-command_args="/home/piped/start.sh"
+command="/usr/lib/jvm/java-17-openjdk/bin/java"
+command_args="-server -Xmx2G -XX:+UnlockExperimentalVMOptions -XX:+OptimizeStringConcat -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+UseNUMA -XX:+UseG1GC -Xshare:on -jar ./piped.jar"
 command_user="piped"
 directory="/home/piped"
 
-output_log="/var/log/$RC_SVCNAME/piped.log"
+#output_log="/var/log/$RC_SVCNAME/piped.log"
 error_log="/var/log/$RC_SVCNAME/error.log"
 
 pidfile="/run/$RC_SVCNAME/$RC_SVCNAME.pid"
+stopsig="SIGKILL"
 command_background="yes"
 
 depend() {
         need net
+        use piped-proxy
+        use postgresql
 }
 
 start_pre() {
