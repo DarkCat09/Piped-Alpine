@@ -6,7 +6,11 @@ WORKDIR=$(pwd)
 
 # ---
 dep () {
-    which "$1" || (echo "$1 not found" && exit 1)
+    if ! which "$1" 2>/dev/null
+    then
+        echo "$1 not found"
+        exit 1
+    fi
 }
 
 clone () {
