@@ -134,8 +134,8 @@ cd_and_exec backend/build/libs \
     find . -maxdepth 1 -name 'piped-*-all.jar' -exec \
     cp {} "$WORKDIR/piped.jar" \;
 
-title 'Copying config...'
-cd_and_exec backend cp config.properties "$WORKDIR"
+title 'Copying config and version...'
+cd_and_exec backend cp config.properties VERSION "$WORKDIR"
 
 title 'Cleaning up...'
 rm -rf backend reqwest4j
@@ -149,7 +149,7 @@ echo '*** ************** ***'
 
 title 'You need these files:'
 
-for f in "piped.jar" "config.properties"
+for f in "piped.jar" "config.properties" "VERSION"
 do
     echo "  $(readlink -f "$f")"
 done
