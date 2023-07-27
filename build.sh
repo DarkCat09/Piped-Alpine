@@ -119,6 +119,10 @@ title 'Adding reqwest4j JAR into Piped sources...'
 cd_and_exec backend mkdir -p libs
 cd_and_exec backend/libs mv "$REQ4J" ./
 
+# From GitHub Actions
+title 'Creating VERSION file...'
+cd_and_exec backend echo "$(git log -1 --date=short --pretty=format:%cd)-$(git rev-parse --short HEAD)" >VERSION
+
 title 'Building Piped...'
 cd_and_exec backend ./gradlew shadowJar
 cd_and_exec backend ./gradlew --stop
