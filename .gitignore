@@ -1,5 +1,6 @@
 piped.jar
 config.properties
+VERSION
 
 backend/
 reqwest4j/

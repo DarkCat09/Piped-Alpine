@@ -30,6 +30,12 @@ try_exec () {
     return 0
 }
 
+set_piped_version () {
+    commit_date=$(git log -1 --date=short --pretty=format:%cd)
+    commit_sha=$(git rev-parse --short HEAD)
+    echo "$commit_date-$commit_sha" >VERSION
+}
+
 title () {
     # Newline, Bold text, $1, Normal text, Newline
     printf '\n\033[1m%s\033[0m\n' "$1"
@@ -121,7 +127,7 @@ cd_and_exec backend/libs mv "$REQ4J" ./
 
 # From GitHub Actions
 title 'Creating VERSION file...'
-cd_and_exec backend echo "$(git log -1 --date=short --pretty=format:%cd)-$(git rev-parse --short HEAD)" >VERSION
+cd_and_exec backend set_piped_version
 
 title 'Building Piped...'
 cd_and_exec backend ./gradlew shadowJar
