@@ -1,21 +1,23 @@
 diff --git a/build.gradle b/build.gradle
-index 952abb5..582be0d 100644
+index 4a0df70..46e6f0c 100644
 --- a/build.gradle
 +++ b/build.gradle
-@@ -11,7 +11,7 @@ repositories {
+@@ -10,10 +10,6 @@ repositories {
+     mavenCentral()
  }
  
- dependencies {
+-dependencies {
 -    rust(project(":reqwest-jni"))
-+    //rust(project(":reqwest-jni"))
- }
- 
+-}
+-
  // javac -h
+ tasks.register('generateJniHeaders', JavaCompile) {
+     classpath = sourceSets.main.compileClasspath
 diff --git a/reqwest-jni/build.gradle.kts b/reqwest-jni/build.gradle.kts
-index 189a81d..8c5895e 100644
+index 189a81d..1c22153 100644
 --- a/reqwest-jni/build.gradle.kts
 +++ b/reqwest-jni/build.gradle.kts
-@@ -4,8 +4,10 @@ plugins {
+@@ -4,8 +4,8 @@ plugins {
  
  rust {
      release.set(true)
@@ -25,7 +27,5 @@ index 189a81d..8c5895e 100644
  
 -    targets += target("aarch64-unknown-linux-gnu", "libreqwest.so")
 -    targets += target("x86_64-unknown-linux-gnu", "libreqwest.so")
-+    // targets += target("aarch64-unknown-linux-gnu", "libreqwest.so")
-+    // targets += target("x86_64-unknown-linux-gnu", "libreqwest.so")
 +    targets += target("x86_64-unknown-linux-musl", "libreqwest.so")
  }
