@@ -1,5 +1,5 @@
-#!/usr/bin/env ash
-# shellcheck shell=dash
+#!/usr/bin/env bash
+# shellcheck source=patcher.sh
 
 WORKDIR=$(pwd)
 
@@ -31,6 +31,7 @@ try_exec () {
 }
 
 set_piped_version () {
+    # From GitHub Actions
     commit_date=$(git log -1 --date=short --pretty=format:%cd)
     commit_sha=$(git rev-parse --short HEAD)
     echo "$commit_date-$commit_sha" >VERSION
@@ -54,19 +55,9 @@ title 'Cloning repositories...'
 [ -e reqwest4j ] || clone https://github.com/TeamPiped/reqwest4j reqwest4j
 
 title 'Applying patches...'
-if [ "$1" != "patched" ]
-then
-    title 'Hint:'
-    echo "if you've already applied patches,"
-    echo "call this script specifying \"patched\" arg, i.e."
-    echo "./build.sh patched"
-    echo
-
-    cd_and_exec backend git apply ../backend.patch
-    cd_and_exec reqwest4j git apply ../reqwest4j.patch
-else
-    echo 'Already applied, skipping'
-fi
+source patcher.sh
+cd_and_exec backend patch_backend
+cd_and_exec reqwest4j patch_reqwest4j
 
 
 # ---
@@ -125,7 +116,6 @@ title 'Adding reqwest4j JAR into Piped sources...'
 cd_and_exec backend mkdir -p libs
 cd_and_exec backend/libs mv "$REQ4J" ./
 
-# From GitHub Actions
 title 'Creating VERSION file...'
 cd_and_exec backend set_piped_version
 
