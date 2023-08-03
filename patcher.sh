@@ -3,7 +3,7 @@
 patch_backend () {
     patcher \
         build.gradle \
-        -e "s/implementation 'rocks.kavin:reqwest4j:.*'/implementation files('libs/reqwest4j.jar')/"
+        -e "s/implementation 'rocks.kavin:reqwest4j:.*'/implementation files('libs\/reqwest4j.jar')/"
     
     patcher \
         src/main/java/me/kavin/piped/Main.java \
