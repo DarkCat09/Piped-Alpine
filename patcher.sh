@@ -18,9 +18,9 @@ patch_reqwest4j () {
     patcher \
         reqwest-jni/build.gradle.kts \
         -e 's/command\.set\("cross"\)/command.set("cargo")/' \
-        -e ' /command\.set\("cargo"\)/a cargoInstallTargets.set(true)' \
+        -e ' /command\.set\("cargo"\)/a targets += target("x86_64-unknown-linux-musl", "libreqwest.so")' \
         -e ' /targets \+= target\(".*-unknown-linux-gnu", "libreqwest\.so"\)/d' \
-        -e ' /cargoInstallTargets\.set\(true\)/a targets += target("x86_64-unknown-linux-musl", "libreqwest.so")'
+        -e ' /targets \+= target\(".*-pc-windows-gnu", "libreqwest\.dll"\)/d'
 }
 
 patcher () {
