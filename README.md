@@ -8,7 +8,9 @@ Patches may outdate, so open an issue
 if you get an error while script applies them.
 
 ## How to build
-1. Install dependencies: `doas apk add git openjdk17 7zip`
+1. Install dependencies: `doas apk add git openjdk17 openjdk21 7zip`
+(Note that both OpenJDK 17 and 21 are installed,
+for building reqwest4j and Piped respectively)
 2. Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`  
 (Note that you don't need doas or sudo here)
 3. Enter to RustUp environment: `source ~/.cargo/env`

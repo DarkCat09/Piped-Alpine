@@ -68,8 +68,13 @@ cd_and_exec reqwest4j/reqwest-jni \
     cargo build --release --target x86_64-unknown-linux-musl
 
 title 'Building reqwest4j without Rust library...'
+OLD_PATH="$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-17-openjdk"
+export PATH="$JAVA_HOME/bin:$PATH"
 cd_and_exec reqwest4j ./gradlew shadowJar
 cd_and_exec reqwest4j ./gradlew --stop
+export PATH="$OLD_PATH"
+unset JAVA_HOME
 
 
 # ---
@@ -120,8 +125,13 @@ title 'Creating VERSION file...'
 cd_and_exec backend set_piped_version
 
 title 'Building Piped...'
+OLD_PATH="$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
+export PATH="$JAVA_HOME/bin:$PATH"
 cd_and_exec backend ./gradlew shadowJar
 cd_and_exec backend ./gradlew --stop
+export PATH="$OLD_PATH"
+unset JAVA_HOME
 
 
 # ---
