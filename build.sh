@@ -69,7 +69,7 @@ cd_and_exec reqwest4j/reqwest-jni \
 
 title 'Building reqwest4j without Rust library...'
 OLD_PATH="$PATH"
-export JAVA_HOME="/usr/lib/jvm/java-17-openjdk"
+export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
 export PATH="$JAVA_HOME/bin:$PATH"
 cd_and_exec reqwest4j ./gradlew shadowJar
 cd_and_exec reqwest4j ./gradlew --stop
