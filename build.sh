@@ -25,6 +25,19 @@ cd_and_exec () {
     cd "$old" || exit 3
 }
 
+update_repo () {
+    if [ -e "$1" ]
+    then
+        echo "$1 exists, updating"
+        cd "$1" || return 3
+        git stash && git stash drop
+        git pull
+    else
+        echo "$1 not found, cloning"
+        clone "$2" "$1"
+    fi
+}
+
 try_exec () {
     "$@"
     return 0
@@ -50,9 +63,9 @@ dep java
 dep cargo
 dep 7z
 
-title 'Cloning repositories...'
-[ -e backend   ] || clone https://github.com/TeamPiped/Piped-Backend backend
-[ -e reqwest4j ] || clone https://github.com/TeamPiped/reqwest4j reqwest4j
+title 'Updating repositories...'
+update_repo backend https://github.com/TeamPiped/Piped-Backend 
+update_repo reqwest4j https://github.com/TeamPiped/reqwest4j 
 
 title 'Applying patches...'
 source patcher.sh
@@ -142,9 +155,6 @@ cd_and_exec backend/build/libs \
 
 title 'Copying config and version...'
 cd_and_exec backend cp config.properties VERSION "$WORKDIR"
-
-title 'Cleaning up...'
-rm -rf backend reqwest4j
 
 
 # ---
