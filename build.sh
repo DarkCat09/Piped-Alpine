@@ -29,9 +29,11 @@ update_repo () {
     if [ -e "$1" ]
     then
         echo "$1 exists, updating"
-        cd "$1" || return 3
+        old=$(pwd)
+        cd "$1" || exit 3
         git stash && git stash drop
-        git pull
+        git pull || exit 2
+        cd "$old" || exit 3
     else
         echo "$1 not found, cloning"
         clone "$2" "$1"
