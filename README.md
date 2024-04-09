@@ -17,6 +17,12 @@ for building reqwest4j and Piped respectively)
 4. Run the script: `./build.sh`  
 (`bash build.sh` if you executed previous commands from bash)
 
+You can set environment variables
+`ARCH=x86_64|aarch64|armv7...`,
+`LIBC=musl|gnu|musleabi|gnueabi`,
+e.g. `ARCH=aarch64 ./build.sh`.
+They default to x86_64 musl.
+
 ## How to start Piped
 1. Edit config.properties
 2. Change `/home/piped` in start.sh to directory

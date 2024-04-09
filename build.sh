@@ -2,6 +2,9 @@
 # shellcheck source=patcher.sh
 
 WORKDIR=$(pwd)
+ARCH="${ARCH:-x86_64}"
+LIBC="${LIBC:-musl}"
+TARGET="$ARCH-unknown-linux-$LIBC"
 
 
 # ---
@@ -76,11 +79,11 @@ cd_and_exec reqwest4j patch_reqwest4j
 
 
 # ---
-export RUSTFLAGS="-C target-feature=-crt-static"
+[ "$LIBC" = "musl" ] && export RUSTFLAGS="-C target-feature=-crt-static"
 
 title 'Building reqwest-jni'
 cd_and_exec reqwest4j/reqwest-jni \
-    cargo build --release --target x86_64-unknown-linux-musl
+    cargo build --release --target "$TARGET"
 
 title 'Building reqwest4j without Rust library...'
 OLD_PATH="$PATH"
@@ -109,12 +112,12 @@ cd_and_exec reqwest4j/build/libs \
 REQJNI_NAME="libreqwest.so"
 REQJNI="$WORKDIR/$REQJNI_NAME"
 
-cd_and_exec reqwest4j/reqwest-jni/target/x86_64-unknown-linux-musl/release \
+cd_and_exec "reqwest4j/reqwest-jni/target/$TARGET/release" \
     cp libreqwest_jni.so "$REQJNI"
 
 # Create JAR native libraries tree
 title '--Creating libraries directory tree'
-NATIVES="META-INF/natives/linux/x86_64"
+NATIVES="META-INF/natives/linux/$ARCH"
 mkdir -p "$NATIVES"
 
 # Move reqwest-jni to native libraries directory
